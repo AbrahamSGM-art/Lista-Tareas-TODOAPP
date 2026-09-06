@@ -19,47 +19,33 @@
     <main id="main">
         <div id="task-list-container">
             <form id="main-task-list-form">
-              <input type="text" id="task-input" placeholder="Create some task..." />
+              <input type="text" id="task-input" placeholder="Type some task . . ." />
              <button type="submit" class="add-btn">
                 <ion-icon name="add-outline"></ion-icon>
              </button>
             </form>
-            <span class="error-message">A task must be provided</span>
+            <span class="error-message"></span>
         </div>
-        <ul class="task-list">
-            <li class="task-item">
-                <button class="incomplete-btn" aria-label="Incomplete">
-                    <ion-icon name="close-outline"></ion-icon>
-                </button>
-                <span class="task-text">Welcome to the todo app!</span>
-                <button class="complete-btn" aria-label="Complete">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                </button>
-            </li>
-            <li class="task-item completed">
-                <button class="incomplete-btn" aria-label="Incomplete">
-                    <ion-icon name="close-outline"></ion-icon>
-                </button>
-                <span class="task-text">The teacher read this</span>
-                <button class="complete-btn" aria-label="Complete">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                </button>
-            </li>
-            <li class="task-item">
-                <button class="incomplete-btn" aria-label="Incomplete">
-                     <ion-icon name="close-outline"></ion-icon>
-                     </button>
-                     <span class="task-text">asdasdasdasdadsasdasdasdasdasdasdasdasdasdasdasdasdasdasdasadasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdas</span>
-                     <button class="complete-btn" aria-label="Complete">
-                        <ion-icon name="checkmark-outline"></ion-icon>
-                     </button>
-</li>
-        </ul>
+        <template id="task-template">
+             <li class="task-item">
+            <button class="delete-btn" aria-label="Delete">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <span class="task-text"></span>
+            <button class="complete-btn" aria-label="Complete">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </button>
+        </li>
+        </template>
+
+        <ul class="task-list"></ul>
+
         <div class="task-counters">
-            <span class="counter total">Total: 3</span>
-            <span class="counter completed-count">Completed: 1</span>
-            <span class="counter incomplete-count">Incompleted: 2</span>
+            <span class="counter total">Total: 0</span>
+            <span class="counter completed-count">Completed: 0</span>
+            <span class="counter incomplete-count">Incompleted: 0</span>
         </div>
     </main>
+    <script src="index.js"></script>
 </body>
 </html>
