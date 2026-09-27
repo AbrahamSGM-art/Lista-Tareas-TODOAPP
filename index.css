@@ -130,34 +130,33 @@ h1 {
     border-bottom: 0.1rem solid var(--border-subtle);
 }
 
-.incomplete-btn {
-    align-self: stretch;
-    width: 4rem;
-    margin:-1.2rem 0;
+.delete-btn {
+    width: 3.6rem;
+    height: 3.6rem;
     border: none;
+    border-radius: 1rem;
     background-color: oklch(63.7% 0.237 25.331);
     color: oklch(98.5% 0.002 247.839);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 2.2rem;
+    font-size: 3rem;
     transition: background-color 0.2s ease;
 }
 
-.complete-btn{
-    flex-shrink: 0;
-    width: 3.2rem;
-    height: 3.2rem;
+.complete-btn {
+    width: 3.6rem;
+    height: 3.6rem;
     border: none;
-    border-left: 0.1rem solid var(--border-subtle);
+    border-radius: 1rem;
     background-color: transparent;
-    padding-left: 1.2rem;
     color: oklch(53.2% 0.157 131.589);
-    font-size: 2.2rem;
+    font-size: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     transition: background-color 0.2s ease;
 }
 
@@ -211,8 +210,8 @@ h1 {
     background-color: oklch(70% 0.25 292.717);
 }
 
-.incomplete-btn:hover,
-.incomplete-btn:focus-visible {
+.delete-btn:hover,
+.delete-btn:focus-visible {
     background-color: oklch(53% 0.237 25.331);
 }
 
