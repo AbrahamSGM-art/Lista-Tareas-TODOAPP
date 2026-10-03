@@ -1,3 +1,5 @@
+import tasksService from "./tasks.js";
+
 const form = document.getElementById("main-task-list-form");
 const input = document.getElementById("task-input");
 const template = document.getElementById("task-template");
@@ -6,16 +8,6 @@ const errorMessage = document.querySelector(".error-message");
 const totalCounter = document.querySelector(".total");
 const completedCounter = document.querySelector(".completed-count");
 const incompleteCounter = document.querySelector(".incomplete-count");
-
-let tasks = [];
-
-const API_URL = "http://localhost:3000/tasks";
-
-const loadTasks = async () => {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    tasks = data;
-};
 
 const renderTask = (task) => {
     const clone = template.content.cloneNode(true);
@@ -53,19 +45,9 @@ form.addEventListener("submit", async (event) => {
     }
     errorMessage.textContent = "";
 
-    const newTask = {
-        text: taskText,
-        completed: false,
-    };
+    const savedTask = await tasksService.addOne({ text: taskText });
+    if (!savedTask) return;
 
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newTask),
-    });
-    const savedTask = await response.json();
-
-    tasks = tasks.concat(savedTask);
     renderTask(savedTask);
     updateCounters();
     input.value = "";
@@ -78,9 +60,9 @@ taskList.addEventListener("click", async (event) => {
     const taskItem = deleteBtn.closest(".task-item");
     const taskId = taskItem.dataset.id;
 
-    await fetch(`${API_URL}/${taskId}`, { method: "DELETE" });
+    const deleted = await tasksService.deleteOne(taskId);
+    if (!deleted) return;
 
-    tasks = tasks.filter((task) => task.id !== taskId);
     taskItem.remove();
     updateCounters();
 });
@@ -92,24 +74,21 @@ taskList.addEventListener("click", async (event) => {
     const taskItem = completeBtn.closest(".task-item");
     const taskId = taskItem.dataset.id;
 
-    const currentTask = tasks.find((task) => task.id === taskId);
+    const isCompleted = taskItem.classList.contains("completed");
 
-    await fetch(`${API_URL}/${taskId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ completed: !currentTask.completed }),
+    const updatedTask = await tasksService.updateOne(taskId, {
+        completed: !isCompleted,
     });
+    if (!updatedTask) return;
 
-    tasks = tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-
-    taskItem.classList.toggle("completed");
+    taskItem.classList.toggle("completed", updatedTask.completed);
     updateCounters();
 });
 
 const init = async () => {
-    await loadTasks();
+    const tasks = await tasksService.getAll();
+    if (!tasks) return;
+
     tasks.forEach(renderTask);
     updateCounters();
 };
